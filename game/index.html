@@ -1,0 +1,19 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>パズルドチェイス 無料テスト版 v0.1.0</title><style>
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#030713}
+#gameViewport{position:fixed;border:0;width:1668px;height:940px;transform-origin:0 0;display:block}
+</style></head><body><iframe id="gameViewport" title="パズルドチェイス" allow="autoplay; fullscreen" allowfullscreen></iframe><script>
+const frame=document.getElementById('gameViewport');
+function fitGame(){const v=window.visualViewport,w=v?v.width:innerWidth,h=v?v.height:innerHeight,s=Math.min(w/1668,h/940);frame.style.transform='scale('+s+')';frame.style.left=((v?v.offsetLeft:0)+(w-1668*s)/2)+'px';frame.style.top=((v?v.offsetTop:0)+(h-940*s)/2)+'px';}
+fitGame();addEventListener('resize',fitGame);document.addEventListener('fullscreenchange',fitGame);if(window.visualViewport){visualViewport.addEventListener('resize',fitGame);visualViewport.addEventListener('scroll',fitGame)}
+</script><script>
+const gameURL='play.html';
+// Storage bridge for the game frame (keys prefixed with 'puzzled-').
+addEventListener('message',e=>{if(e.source!==frame.contentWindow)return;const d=e.data||{},key=String(d.key||'');
+ try{if(d.type==='pc-store-request'){const data={};for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith('puzzled-'))data[k]=localStorage.getItem(k)}frame.contentWindow.postMessage({type:'pc-store-init',data},'*')}
+ else if(d.type==='pc-store-set'&&key.startsWith('puzzled-'))localStorage.setItem(key,String(d.value));
+ else if(d.type==='pc-store-remove'&&key.startsWith('puzzled-'))localStorage.removeItem(key)}catch(err){}});
+frame.src=gameURL;
+</script><style>#pt-badge{position:fixed;left:8px;bottom:8px;z-index:99990;display:flex;gap:6px;align-items:center;font:12px/1.2 "Hiragino Sans",sans-serif}
+#pt-badge span{background:rgba(10,16,28,.72);color:#e9d9b0;padding:4px 8px;border-radius:4px;border:1px solid rgba(233,217,176,.35)}
+#pt-badge a{background:#e6b969;color:#14100a;text-decoration:none;font-weight:700;padding:4px 9px;border-radius:4px}</style>
+<div id="pt-badge"><span>開発中・無料テスト版 v0.1.0</span><a href="https://x.com/intent/post?text=%E3%83%91%E3%82%BA%E3%83%AB%E3%83%89%E3%83%81%E3%82%A7%E3%82%A4%E3%82%B9%EF%BC%88%E7%84%A1%E6%96%99%E3%83%86%E3%82%B9%E3%83%88%E7%89%88%20v0.1.0%EF%BC%89%E3%82%92%E9%81%8A%E3%82%93%E3%81%A0%EF%BC%81%0A&hashtags=%E3%83%91%E3%82%BA%E3%83%AB%E3%83%89%E3%83%81%E3%82%A7%E3%82%A4%E3%82%B9%E3%83%86%E3%82%B9%E3%83%88%E3%83%97%E3%83%AC%E3%82%A4" target="_blank" rel="noopener">Xで感想を送る</a></div></body></html>
